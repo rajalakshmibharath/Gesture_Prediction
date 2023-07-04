@@ -2,7 +2,7 @@ AUGMENTATION: True
 IMAGE_SIZE: [224, 224, 3] # as per VGG 16 model
 BATCH_SIZE: 8
 INCLUDE_TOP: False #we get pretrainde model
-EPOCHS: 1
+EPOCHS: 2
 CLASSES: 37
 WEIGHTS: imagenet
 LEARNING_RATE: 0.001
