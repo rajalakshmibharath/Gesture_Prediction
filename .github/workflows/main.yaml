@@ -12,6 +12,13 @@ permissions:
   contents: read
 
 jobs:
+
+  my-job:
+    runs-on: self-hosted
+    steps:
+      - name: Example Step
+        run: echo "This job runs on a self-hosted runner"
+        
   integration:
     name: Continuous Integration
     runs-on: ubuntu-latest
