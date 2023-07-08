@@ -1,17 +1,13 @@
 stages:
 
-	#1st stgae is data ingsetion
   data_ingestion:
-
-		#the code within cmd is what we execute in terminal like python .....py
+  
     cmd: python src/sign_language_prediction/pipeline/stage_01_data_ingestion.py
-
-	
+    
     deps:
       - src/sign_language_prediction/pipeline/stage_01_data_ingestion.py
       - config/config.yaml
-
-		#outs: specify the o/p we get from the stage 
+      
     outs:
       - artifacts/data_ingestion/Gesture-Image-Data
 
