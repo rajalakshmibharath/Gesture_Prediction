@@ -1,0 +1,67 @@
+stages:
+
+	#1st stgae is data ingsetion
+  data_ingestion:
+
+		#the code within cmd is what we execute in terminal like python .....py
+    cmd: python src/sign_language_prediction/pipeline/stage_01_data_ingestion.py
+
+	
+    deps:
+      - src/sign_language_prediction/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+
+		#outs: specify the o/p we get from the stage 
+    outs:
+      - artifacts/data_ingestion/Gesture-Image-Data
+
+
+
+  prepare_base_model:
+    cmd: python src/sign_language_prediction/pipeline/stage_02_prepare_base_model.py
+    deps:
+      - src/sign_language_prediction/pipeline/stage_02_prepare_base_model.py
+      - config/config.yaml
+    params:
+      - IMAGE_SIZE
+      - INCLUDE_TOP
+      - CLASSES
+      - WEIGHTS
+      - LEARNING_RATE
+    outs:
+      - artifacts/prepare_base_model
+
+
+
+  training:
+    cmd: python src/sign_language_prediction/pipeline/stage_03_training.py
+    deps:
+      - src/sign_language_prediction/pipeline/stage_03_training.py
+      - src/sign_language_prediction/components/prepare_callbacks.py
+      - config/config.yaml
+      - artifacts/data_ingestion/Gesture-Image-Data
+      - artifacts/prepare_base_model
+    params:
+      - IMAGE_SIZE
+      - EPOCHS
+      - BATCH_SIZE
+      - AUGMENTATION
+    outs:
+      - artifacts/training/model.h5
+
+
+  
+
+  model_evaluation:
+    cmd: python src/sign_language_prediction/pipeline/stage_04_model_evaluation.py
+    deps:
+      - src/sign_language_prediction/pipeline/stage_04_model_evaluation.py
+      - config/config.yaml
+      - artifacts/data_ingestion/Gesture-Image-Data
+      - artifacts/training/model.h5
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+    metrics:
+    - scores.json:
+        cache: false
