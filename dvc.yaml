@@ -9,8 +9,7 @@ stages:
       - config/config.yaml
       
     outs:
-      - artifacts/data_ingestion/Gesture-Image-Data
-
+      - artifacts/data_ingestion/Gesture Image Data
 
 
   prepare_base_model:
@@ -35,7 +34,7 @@ stages:
       - src/sign_language_prediction/pipeline/stage_03_training.py
       - src/sign_language_prediction/components/prepare_callbacks.py
       - config/config.yaml
-      - artifacts/data_ingestion/Gesture-Image-Data
+      - artifacts/data_ingestion/Gesture Image Data
       - artifacts/prepare_base_model
     params:
       - IMAGE_SIZE
@@ -53,7 +52,7 @@ stages:
     deps:
       - src/sign_language_prediction/pipeline/stage_04_model_evaluation.py
       - config/config.yaml
-      - artifacts/data_ingestion/Gesture-Image-Data
+      - artifacts/data_ingestion/Gesture Image Data
       - artifacts/training/model.h5
     params:
       - IMAGE_SIZE
